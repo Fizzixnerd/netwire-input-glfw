@@ -40,7 +40,8 @@ library
                        containers,
                        GLFW-b,
                        stm,
-                       mtl
+                       mtl,
+                       safe-exceptions
   hs-source-dirs:      lib
   default-language:    Haskell2010
 

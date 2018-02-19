@@ -45,6 +45,7 @@ import Control.Monad.State
 import Control.Monad.Except
 import Control.Monad.Cont
 import Control.Monad.Identity
+import Control.Exception.Safe
 import GHC.Float hiding (clamp)
 
 import FRP.Netwire.Input
@@ -103,6 +104,9 @@ newtype GLFWInputT m a =
            , MonadPlus
            , MonadCont
            , MonadTrans
+           , MonadThrow
+           , MonadCatch
+           , MonadMask
            )
 
 instance MonadState s m => MonadState s (GLFWInputT m) where
