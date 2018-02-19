@@ -16,6 +16,8 @@ package implements 'GLFWInputT' which has instances of 'MonadKeyboard' and
 
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE UndecidableInstances #-}
+{-# LANGUAGE RankNTypes #-}
+{-# LANGUAGE StandaloneDeriving #-}
 
 module FRP.Netwire.Input.GLFW (
   -- * GLFW Input
@@ -45,7 +47,7 @@ import Control.Monad.State
 import Control.Monad.Except
 import Control.Monad.Cont
 import Control.Monad.Identity
-import Control.Exception.Safe
+import Control.Monad.Catch
 import GHC.Float hiding (clamp)
 
 import FRP.Netwire.Input
@@ -104,10 +106,11 @@ newtype GLFWInputT m a =
            , MonadPlus
            , MonadCont
            , MonadTrans
-           , MonadThrow
-           , MonadCatch
-           , MonadMask
            )
+
+deriving instance MonadThrow m => MonadThrow (GLFWInputT m)
+deriving instance MonadCatch m => MonadCatch (GLFWInputT m)
+deriving instance MonadMask m => MonadMask (GLFWInputT m)
 
 instance MonadState s m => MonadState s (GLFWInputT m) where
   get = lift get

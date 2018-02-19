@@ -41,7 +41,7 @@ library
                        GLFW-b,
                        stm,
                        mtl,
-                       safe-exceptions
+                       exceptions
   hs-source-dirs:      lib
   default-language:    Haskell2010
 
